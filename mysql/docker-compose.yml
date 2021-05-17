@@ -1,0 +1,15 @@
+version: '3'
+services:
+  mysql:
+    build: .
+    volumes:
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    image: docker-compose
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '3333:3306'
