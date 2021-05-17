@@ -1,2 +1,4 @@
 mysql/initdb.d/koolhaas_for_ht.sql
 .env
+target/
+search_pages.csv
