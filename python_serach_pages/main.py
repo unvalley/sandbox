@@ -70,8 +70,6 @@ def main():
         path = f"csv/{k}.csv"
         write_csv(v, path)
 
-    # 書き込み処理
-
 
 if __name__ == '__main__':
     main()
