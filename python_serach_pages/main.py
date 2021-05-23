@@ -1,5 +1,5 @@
 import csv
-from collections import defaultdict, deque
+from collections import defaultdict
 
 
 # return: { 'task_id' : [...search_pages], ...}
@@ -16,14 +16,19 @@ def split_list(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
 
+# scoreの上位から三分割し，分割されたリストから一つずつ取り出してresultへ格納
+# 雑実装
+
 
 def ranking(search_pages):
     result = []
     score_order_list = sorted(
         search_pages, reverse=True, key=lambda x: x['score'])
-    splitted_score_order_list = list(split_list(score_order_list, 17))
 
-    for i in range(len(splitted_score_order_list[0])):
+    MAX_LENGTH = 17
+    splitted_score_order_list = list(split_list(score_order_list, MAX_LENGTH))
+
+    for i in range(MAX_LENGTH):
         for splitted in zip(splitted_score_order_list):
             try:
                 result.append(list(splitted[0][i].values()))
@@ -42,7 +47,6 @@ def change_rank(search_pages_keyby_task_id):
         ranked_search_pages = ranking(search_pages)
         new_ranked_search_pages_keyby_task_id[k].append(ranked_search_pages)
 
-        # ランク操作の処理
     return new_ranked_search_pages_keyby_task_id
 
 
