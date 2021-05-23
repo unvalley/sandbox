@@ -16,9 +16,6 @@ def split_list(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
 
-# scoreの上位から三分割し，分割されたリストから一つずつ取り出してresultへ格納
-# 雑実装
-
 
 def ranking(search_pages):
     result = []
@@ -64,7 +61,6 @@ def main():
     path = './search_pages.csv'
     search_pages_keyby_task_id = load_search_pagegs_by_task_id(path)
 
-    # rank操作
     ranked_search_pagegs = change_rank(search_pages_keyby_task_id)
     for k, v in ranked_search_pagegs.items():
         path = f"csv/{k}.csv"
