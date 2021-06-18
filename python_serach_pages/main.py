@@ -1,4 +1,5 @@
 import csv
+import glob
 from collections import defaultdict
 
 
@@ -22,7 +23,7 @@ def ranking(search_pages):
     score_order_list = sorted(
         search_pages, reverse=True, key=lambda x: x['score'])
 
-    MAX_LENGTH = 17
+    MAX_LENGTH = 10
     splitted_score_order_list = list(split_list(score_order_list, MAX_LENGTH))
 
     for i in range(MAX_LENGTH):
@@ -49,22 +50,25 @@ def change_rank(search_pages_keyby_task_id):
 
 def write_csv(responses: list, path: str):
     HEADER = ['id', 'title', 'url', 'snippet', 'score',
-              'task_id', 'good_entity', 'bad_entity', 'item_id', 'expertise']
+              'item_id', 'task_id', 'hospital_expertise', 'displayOrder']
     with open(path, "w") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
         writer.writerow(HEADER)
         for res in responses:
-            writer.writerows(res)
+            r = [[*v, idx+1] for idx, v in enumerate(res)]
+            writer.writerows(r)
 
 
 def main():
-    path = './search_pages.csv'
-    search_pages_keyby_task_id = load_search_pagegs_by_task_id(path)
+    paths = glob.glob('from/*.csv')
 
-    ranked_search_pagegs = change_rank(search_pages_keyby_task_id)
-    for k, v in ranked_search_pagegs.items():
-        path = f"csv/{k}.csv"
-        write_csv(v, path)
+    for path in paths:
+        search_pages_keyby_task_id = load_search_pagegs_by_task_id(path)
+
+        ranked_search_pagegs = change_rank(search_pages_keyby_task_id)
+        for k, v in ranked_search_pagegs.items():
+            write_path = f"to/{k}.csv"
+            write_csv(v, write_path)
 
 
 if __name__ == '__main__':
