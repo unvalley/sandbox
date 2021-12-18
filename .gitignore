@@ -3,3 +3,10 @@ mysql/initdb.d/koolhaas_for_ht.sql
 target/
 search_pages.csv
 csv/
+file:/
+.metals/
+.vscode/
+*.csv
+*.tsv
+cache/
+build/
