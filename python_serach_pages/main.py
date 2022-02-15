@@ -3,6 +3,20 @@ import glob
 from collections import defaultdict
 
 
+forms = ['' * 36]
+people = 5
+
+kv = [{"form": '',  "sumitted_users": []},
+      {"form": '',  "sumitted_users": []},
+      {"form": '',  "sumitted_users": []},
+      {"form": '',  "sumitted_users": []},
+      {"form": '',  "sumitted_users": []},
+      {"form": '',  "sumitted_users": []}, ]
+
+# 5> len(submitted_users) && username not in submitted_users:
+# -> picked. submitted_users.append(username)
+
+
 # return: { 'task_id' : [...search_pages], ...}
 def load_search_pagegs_by_task_id(path: str):
     search_pages = defaultdict(list)
